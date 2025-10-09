@@ -1,0 +1,12 @@
+Command line:
+   cron_dec_tb_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  38095
+
+Thu Oct  9 15:03:02 2025
+
+Resolution function required for the Net /cron_dec_tb/UUT/ea_int driven by:
+/cron_dec_tb/UUT//t2.vhd:fme_control
+/cron_dec_tb/UUT//t2.vhd:fme_combinational
+

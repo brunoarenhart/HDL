@@ -1,0 +1,2 @@
+vhdl work "t2.vhd"
+vhdl work "cron_dec_tb.vhd"
