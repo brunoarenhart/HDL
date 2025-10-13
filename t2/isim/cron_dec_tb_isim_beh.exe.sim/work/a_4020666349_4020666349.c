@@ -21,7 +21,7 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "/home/ise/t2/cron_dec_tb.vhd";
+static const char *ng0 = "/home/ise/ise_projs/t2/cron_dec_tb.vhd";
 extern char *IEEE_P_2592010699;
 
 unsigned char ieee_p_2592010699_sub_374109322130769762_503743352(char *, unsigned char );
@@ -205,7 +205,7 @@ static void work_a_4020666349_4020666349_p_4(char *t0)
 
 LAB0:    xsi_set_current_line(56, ng0);
 
-LAB3:    t1 = (t0 + 7069);
+LAB3:    t1 = (t0 + 7229);
     t3 = (t0 + 5040);
     t4 = (t3 + 56U);
     t5 = *((char **)t4);
@@ -214,7 +214,7 @@ LAB3:    t1 = (t0 + 7069);
     memcpy(t7, t1, 8U);
     xsi_driver_first_trans_delta(t3, 0U, 8U, 0LL);
     t8 = (30 * 1000LL);
-    t9 = (t0 + 7077);
+    t9 = (t0 + 7237);
     t11 = (t0 + 5040);
     t12 = (t11 + 56U);
     t13 = *((char **)t12);
@@ -223,7 +223,7 @@ LAB3:    t1 = (t0 + 7069);
     memcpy(t15, t9, 8U);
     xsi_driver_subsequent_trans_delta(t11, 0U, 8U, t8);
     t16 = (1000 * 1000LL);
-    t17 = (t0 + 7085);
+    t17 = (t0 + 7245);
     t19 = (t0 + 5040);
     t20 = (t19 + 56U);
     t21 = *((char **)t20);
@@ -263,7 +263,7 @@ static void work_a_4020666349_4020666349_p_5(char *t0)
 
 LAB0:    xsi_set_current_line(57, ng0);
 
-LAB3:    t1 = (t0 + 7093);
+LAB3:    t1 = (t0 + 7253);
     t3 = (t0 + 5104);
     t4 = (t3 + 56U);
     t5 = *((char **)t4);
@@ -272,7 +272,7 @@ LAB3:    t1 = (t0 + 7093);
     memcpy(t7, t1, 8U);
     xsi_driver_first_trans_delta(t3, 0U, 8U, 0LL);
     t8 = (800 * 1000LL);
-    t9 = (t0 + 7101);
+    t9 = (t0 + 7261);
     t11 = (t0 + 5104);
     t12 = (t11 + 56U);
     t13 = *((char **)t12);
@@ -281,7 +281,7 @@ LAB3:    t1 = (t0 + 7093);
     memcpy(t15, t9, 8U);
     xsi_driver_subsequent_trans_delta(t11, 0U, 8U, t8);
     t16 = (1000 * 1000LL);
-    t17 = (t0 + 7109);
+    t17 = (t0 + 7269);
     t19 = (t0 + 5104);
     t20 = (t19 + 56U);
     t21 = *((char **)t20);

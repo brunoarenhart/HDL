@@ -1,0 +1,14 @@
+### UCF do Projeto Somador de 4 Bits para a Nexys2 com XC3S1200E
+### Adaptar a pinagem para Nexys2 com XC3S500E ou para Nexys
+NET "A[3]" LOC = R17; # Bit 3 do vetor A
+NET "A[2]" LOC = N17; # Bit 2 do vetor A
+NET "A[1]" LOC = L13; # Bit 1 do vetor A
+NET "A[0]" LOC = L14; # Bit 0 do vetor A
+NET "B[3]" LOC = K17; # Bit 3 do vetor B
+NET "B[2]" LOC = K18; # Bit 2 do vetor B
+NET "B[1]" LOC = H18; # Bit 1 do vetor B
+NET "B[0]" LOC = G18; # Bit 0 do vetor B
+NET "Soma[3]" LOC = P16;
+NET "Soma[2]" LOC = E16;
+NET "Soma[1]" LOC = K14;
+NET "Soma[0]" LOC = K15;

@@ -1,14 +1,14 @@
-Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/ise/t2/cron_dec_tb_isim_beh.exe -prj /home/ise/t2/cron_dec_tb_beh.prj work.cron_dec_tb 
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/ise/ise_projs/t2/cron_dec_tb_isim_beh.exe -prj /home/ise/ise_projs/t2/cron_dec_tb_beh.prj work.cron_dec_tb 
 ISim P.20131013 (signature 0xfbc00daa)
 Number of CPUs detected in this system: 1
 Turning on mult-threading, number of parallel sub-compilation jobs: 0 
 Determining compilation order of HDL files
-Parsing VHDL file "/home/ise/t2/t2.vhd" into library work
-Parsing VHDL file "/home/ise/t2/cron_dec_tb.vhd" into library work
+Parsing VHDL file "/home/ise/ise_projs/t2/t2.vhd" into library work
+Parsing VHDL file "/home/ise/ise_projs/t2/cron_dec_tb.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 98244 KB
-Fuse CPU Usage: 560 ms
+Fuse Memory Usage: 98240 KB
+Fuse CPU Usage: 940 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package mypack
@@ -19,7 +19,7 @@ Compiling architecture cron_dec of entity cron_dec [cron_dec_default]
 Compiling architecture cron_dec_tb of entity cron_dec_tb
 Time Resolution for simulation is 1ps.
 Compiled 9 VHDL Units
-Built simulation executable /home/ise/t2/cron_dec_tb_isim_beh.exe
-Fuse Memory Usage: 119192 KB
-Fuse CPU Usage: 720 ms
-GCC CPU Usage: 2410 ms
+Built simulation executable /home/ise/ise_projs/t2/cron_dec_tb_isim_beh.exe
+Fuse Memory Usage: 119188 KB
+Fuse CPU Usage: 1260 ms
+GCC CPU Usage: 620 ms

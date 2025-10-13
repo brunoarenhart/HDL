@@ -1,23 +1,22 @@
-package mypack is
-	type states is (REP, LOAD, COUNT);
-end mypack;
+--package mypack is
+--	type states is (REP, LOAD, COUNT);
+--end mypack;
 
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.numeric_std.all;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+use IEEE.NUMERIC_STD.all;
+
 use work.mypack.all;
 
 entity cron_dec is
 generic ( CLOCK_FREQ : integer := 25_000_000 );
 port (
 		reset, conta, carga, clock: in std_logic;
---		chaves: in std_logic_vector(6 downto 0);
-		an, dec_dpp: out std_logic_vector(7 downto 0)
-		; EA: out states;
-		min, seg : in std_logic_vector(7 downto 0)
+		chaves: in std_logic_vector(6 downto 0);
+		an, dec_dpp: out std_logic_vector(7 downto 0);
+		min, seg : out std_logic_vector(7 downto 0)
 );
 end cron_dec;
 
@@ -45,15 +44,15 @@ architecture cron_dec of cron_dec is
 		 "10010000", "10010001", "10010010", "10010011", "10010100",
 		 "10010101", "10010110", "10010111", "10011000", "10011001");
  
- signal EA_int, PE : states;
+ signal EA, PE : states;
  signal i: integer range 1 to 25_000_000;
  signal pronto: std_logic;
  signal seg_int : integer range 0 to 59;
  signal min_int : integer range 0 to 99;
  signal ck1seg: std_logic;
+ signal Segundos_BCD: std_logic_vector(7 downto 0);
  
  begin
- EA <= EA_int;
 --P1: divisor de clock para gerar o ck1seg
 div_clk: process(clock, reset)
 	begin
@@ -76,18 +75,18 @@ fme_control: process(ck1seg, reset)
 	begin
 	
 	if reset = '1' then
-		EA_int <= REP;
+		EA <= REP;
 	elsif rising_edge(ck1seg) then
-		EA_int <= PE;
+		EA <= PE;
 	end if;
 	
 end process fme_control;
 
-fme_combinational: process(conta, carga, EA_int)
+fme_combinational: process(conta, carga, EA)
 	begin
-	EA_int <= PE;
+	EA <= PE;
 	
-	case EA_int is
+	case EA is
 	
 		when REP => 
 			if carga = '1' then 
@@ -100,7 +99,7 @@ fme_combinational: process(conta, carga, EA_int)
 			end if;
 			
 		when COUNT => 
-			if (seg = 0 AND min = 0) then
+			if (seg_int = 0) AND (min_int = 0) then
 				PE <= REP;
 			end if;
 			
@@ -111,57 +110,58 @@ fme_combinational: process(conta, carga, EA_int)
 	
 --P4: contador de segundos
 
---segundos : process(ck1seg, reset)
---	begin
---		if reset = '1' then 
---			seg_int <= 0;
---			pronto <= '0';
---		elsif rising_edge(ck1seg) then 
---			if EA = LOAD then
---            seg_int <= 0;
---				pronto <= '0';
---			elsif EA = COUNT then 
---				if seg_int = 0 then
---					pronto <= '1';
---				else 
---					pronto <= '0';
---				end if;
---				if seg_int = 0 then
---					seg_int <= 59;
---				else
---					seg_int <= seg_int - 1;
---				end if;
---			end if;
---		end if;
---	end process segundos;
---	pronto <= '1' when seg_int = 0 else '0';
---	
-----P5: contador de minutos
---minutos: process(ck1seg,reset)
---	begin
---		if reset = '1' then
---			min_int <= 0;
---		elsif rising_edge(ck1seg) then
---			if EA = LOAD then 
---				min_int <= to_integer(unsigned(chaves)); 
---			elsif EA = COUNT then
---				if pronto = '1' then
---					min_int <= min_int - 1;
---				end if;
---			else
---				pronto <= '0';
---			end if;
---		end if;
---	end process minutos;
+segundos : process(ck1seg, reset)
+	begin
+		if reset = '1' then 
+			seg_int <= 0;
+			pronto <= '0';
+		elsif rising_edge(ck1seg) then 
+			if EA = LOAD then
+            seg_int <= 0;
+				pronto <= '0';
+			elsif EA = COUNT then 
+				if seg_int = 0 then
+					pronto <= '1';
+				else 
+					pronto <= '0';
+				end if;
+				if seg_int = 0 then
+					seg_int <= 59;
+				else
+					seg_int <= seg_int - 1;
+				end if;
+			end if;
+		end if;
+	end process segundos;
+	pronto <= '1' when seg_int = 0 else '0';
+	
+--P5: contador de minutos
+minutos: process(ck1seg,reset)
+	begin
+		if reset = '1' then
+			min_int <= 0;
+		elsif rising_edge(ck1seg) then
+			if EA = LOAD then 
+				min_int <= to_integer(unsigned(chaves));
+			elsif EA = COUNT then
+				if pronto = '1' then
+					min_int <= min_int - 1;
+				end if;
+			else
+				pronto <= '0';
+			end if;
+		end if;
+	end process minutos;
+	
 			
 -- instanciação das ROMs
---Segundos_BCD <= conv_to_BCD(conv_integer(seg));
---Minutos_BCD <= conv_to_BCD(conv_integer(min));
+seg <= conv_to_BCD(seg_int);
+min <= conv_to_BCD(min_int);
 ---- display driver
---d1 <= '1' & Segundos_BCD(3 downto 0) & '1';
---d2 <= '1' & Segundos_BCD(2 downto 0) & '1';
---d3 <= '1' & Minutos_BCD(4 downto 0) & '1';
---d4 <= '1' & Minutos_BCD(4 downto 0) & '1';
+--d1 <= '1' & seg(3 downto 0) & '1';
+--d2 <= '1' & seg(2 downto 0) & '1';
+--d3 <= '1' & min(4 downto 0) & '1';
+--d4 <= '1' & min(4 downto 0) & '1';
 --...
 --display_driver : entity work.dspl_drv port map (
 --...
