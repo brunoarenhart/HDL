@@ -1,0 +1,6 @@
+xst -intstyle ise -ifn "/home/ise/ise_projs/t2/cron_dec.xst" -ofn "/home/ise/ise_projs/t2/cron_dec.syr" 
+xst -intstyle ise -ifn "/home/ise/ise_projs/t2/cron_dec.xst" -ofn "/home/ise/ise_projs/t2/cron_dec.syr" 
+xst -intstyle ise -ifn "/home/ise/ise_projs/t2/cron_dec.xst" -ofn "/home/ise/ise_projs/t2/cron_dec.syr" 
+xst -intstyle ise -ifn "/home/ise/ise_projs/t2/cron_dec.xst" -ofn "/home/ise/ise_projs/t2/cron_dec.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc3s1200e-fg320-4 cron_dec.ngc cron_dec.ngd  
+map -intstyle ise -p xc3s1200e-fg320-4 -cm area -ir off -pr off -c 100 -o cron_dec_map.ncd cron_dec.ngd cron_dec.pcf 

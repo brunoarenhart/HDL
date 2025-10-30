@@ -1,0 +1,4 @@
+AR cron_dec cron_dec /home/ise/ise_projs/t2/t2.vhd sub00/vhpl03 1761057949
+AR dspl_drv dspl_drv /home/ise/ise_projs/t2/dp_driver.vhd sub00/vhpl01 1761057947
+EN dspl_drv NULL /home/ise/ise_projs/t2/dp_driver.vhd sub00/vhpl00 1761057946
+EN cron_dec NULL /home/ise/ise_projs/t2/t2.vhd sub00/vhpl02 1761057948

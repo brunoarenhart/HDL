@@ -1,22 +1,18 @@
---package mypack is
---	type states is (REP, LOAD, COUNT);
---end mypack;
-
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 use IEEE.NUMERIC_STD.all;
 
-use work.mypack.all;
+use work.all;
 
 entity cron_dec is
 generic ( CLOCK_FREQ : integer := 25_000_000 );
 port (
 		reset, conta, carga, clock: in std_logic;
 		chaves: in std_logic_vector(6 downto 0);
-		an, dec_dpp: out std_logic_vector(7 downto 0);
-		min, seg : out std_logic_vector(7 downto 0)
+		dec_ddp: out std_logic_vector(7 downto 0);
+		an: out std_logic_vector(3 downto 0)
 );
 end cron_dec;
 
@@ -43,7 +39,7 @@ architecture cron_dec of cron_dec is
 		 "10000101", "10000110", "10000111", "10001000", "10001001",
 		 "10010000", "10010001", "10010010", "10010011", "10010100",
 		 "10010101", "10010110", "10010111", "10011000", "10011001");
- 
+ type states is (REP, LOAD, COUNT);
  signal EA, PE : states;
  signal i: integer range 1 to 25_000_000;
  signal pronto: std_logic;
@@ -51,6 +47,8 @@ architecture cron_dec of cron_dec is
  signal min_int : integer range 0 to 99;
  signal ck1seg: std_logic;
  signal Segundos_BCD: std_logic_vector(7 downto 0);
+ signal d0, d1, d2, d3: std_logic_vector( 5 downto 0);
+ signal seg, min :std_logic_vector(7 downto 0);
  
  begin
 --P1: divisor de clock para gerar o ck1seg
@@ -84,23 +82,27 @@ end process fme_control;
 
 fme_combinational: process(conta, carga, EA)
 	begin
-	EA <= PE;
-	
 	case EA is
 	
 		when REP => 
 			if carga = '1' then 
 				PE <= lOAD;
+			else
+				PE <= REP;
 			end if;
 			
 		when LOAD => 
 			if conta = '1' then 
 				PE <= COUNT;
+			else 
+				PE <= LOAD;
 			end if;
 			
 		when COUNT => 
 			if (seg_int = 0) AND (min_int = 0) then
 				PE <= REP;
+			else 
+				PE <= COUNT;
 			end if;
 			
 		end case;
@@ -114,20 +116,13 @@ segundos : process(ck1seg, reset)
 	begin
 		if reset = '1' then 
 			seg_int <= 0;
-			pronto <= '0';
 		elsif rising_edge(ck1seg) then 
 			if EA = LOAD then
             seg_int <= 0;
-				pronto <= '0';
 			elsif EA = COUNT then 
 				if seg_int = 0 then
-					pronto <= '1';
-				else 
-					pronto <= '0';
-				end if;
-				if seg_int = 0 then
 					seg_int <= 59;
-				else
+				else 
 					seg_int <= seg_int - 1;
 				end if;
 			end if;
@@ -143,12 +138,10 @@ minutos: process(ck1seg,reset)
 		elsif rising_edge(ck1seg) then
 			if EA = LOAD then 
 				min_int <= to_integer(unsigned(chaves));
-			elsif EA = COUNT then
-				if pronto = '1' then
+			elsif EA = COUNT  and pronto = '1' then
+				 if min_int > 0 then
 					min_int <= min_int - 1;
 				end if;
-			else
-				pronto <= '0';
 			end if;
 		end if;
 	end process minutos;
@@ -157,13 +150,21 @@ minutos: process(ck1seg,reset)
 -- instanciação das ROMs
 seg <= conv_to_BCD(seg_int);
 min <= conv_to_BCD(min_int);
----- display driver
---d1 <= '1' & seg(3 downto 0) & '1';
---d2 <= '1' & seg(2 downto 0) & '1';
---d3 <= '1' & min(4 downto 0) & '1';
---d4 <= '1' & min(4 downto 0) & '1';
---...
---display_driver : entity work.dspl_drv port map (
---...
---);
+-- display driver
+d0 <= '1' & seg(7 downto 4) & '1';
+d1 <= '1' & seg(3 downto 0) & '1';
+d2 <= '1' & min(7 downto 4) & '1';
+d3 <= '1' & min(3 downto 0) & '1';
+
+dp_driver: entity work.dspl_drv
+	port map (
+		clock => clock, reset => reset,
+		d3 => d3,
+		d2 => d2,
+		d1 => d1,
+		d0 => d0,
+		an => an,
+		dec_ddp => dec_ddp
+	);
+
 end cron_dec; 

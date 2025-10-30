@@ -1,0 +1,61 @@
+Release 14.7 Map P.20131013 (lin64)
+Xilinx Map Application Log File for Design 'cron_dec'
+
+Design Information
+------------------
+Command Line   : map -intstyle ise -p xc3s1200e-fg320-4 -cm area -ir off -pr off
+-c 100 -o cron_dec_map.ncd cron_dec.ngd cron_dec.pcf 
+Target Device  : xc3s1200e
+Target Package : fg320
+Target Speed   : -4
+Mapper Version : spartan3e -- $Revision: 1.55 $
+Mapped Date    : Tue Oct 21 14:46:04 2025
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+INFO:Security:54 - 'xc3s1200e' is a WebPack part.
+INFO:Security:7 - A feature for ISE was found but is for the wrong hostid.
+INFO:Security:60 - The XILINXD_LICENSE_FILE environment variable is set to
+'2100@paxos.inf.pucrs.br:8888'.
+INFO:Security:62 - The LM_LICENSE_FILE environment variable is set to
+'2100@172.65.212.135:8888'.
+INFO:Security:68 - For more information or for assistance in obtaining 
+ a license, please run the Xilinx License Configuration Manager
+       (xlcm or "Manage Xilinx Licenses".)
+INFO:Security:68a - user is ise, on host localhost.localdomain.
+ERROR:Security:9c - No 'ISE' nor 'WebPack' feature version 2013.10 was available
+for part 'xc3s1200e'.
+----------------------------------------------------------------------
+Cannot connect to license server system.
+ The license server manager (lmgrd) has not been started yet,
+ the wrong port@host or license file is being used, or the
+ port or hostname in the license file has been changed.
+Feature:       WebPack
+Server name:   172.65.212.135
+License path: 
+2100@paxos.inf.pucrs.br:8888:2100@172.65.212.135:/home/ise/.Xilinx/Xilinx.lic:/o
+pt/Xilinx/14.7/ISE_DS/ISE//data/*.lic:/opt/Xilinx/14.7/ISE_DS/ISE//coregen/core_
+licenses/Xilinx.lic:/opt/Xilinx/14.7/ISE_DS/ISE//coregen/core_licenses/XilinxFre
+e.lic:/opt/Xilinx/14.7/ISE_DS/EDK/data/core_licenses/Xilinx.lic:
+FLEXnet Licensing error:-15,570.  System Error: 101 "Network is unreachable"
+For further information, refer to the FLEXnet Licensing documentation,
+available at "www.flexerasoftware.com".Invalid host.
+ The hostid of this system does not match the hostid
+ specified in the license file.
+Feature:       ISE
+Hostid:        08002768c935
+License path: 
+2100@paxos.inf.pucrs.br:8888:2100@172.65.212.135:/home/ise/.Xilinx/Xilinx.lic:/o
+pt/Xilinx/14.7/ISE_DS/ISE//data/*.lic:/opt/Xilinx/14.7/ISE_DS/ISE//coregen/core_
+licenses/Xilinx.lic:/opt/Xilinx/14.7/ISE_DS/ISE//coregen/core_licenses/XilinxFre
+e.lic:/opt/Xilinx/14.7/ISE_DS/EDK/data/core_licenses/Xilinx.lic:
+FLEXnet Licensing error:-9,57.  System Error: 101 "Network is unreachable"
+For further information, refer to the FLEXnet Licensing documentation,
+available at "www.flexerasoftware.com".
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR:Map:258 - A problem was encountered attempting to get the license for this
+   architecture. 
+
+Design Summary
+--------------
+Number of errors   :   1
+Number of warnings :   0

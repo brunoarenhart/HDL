@@ -1,0 +1,27 @@
+NET "chave[6]" LOC = R17; 
+NET "chave[5]" LOC = N17; 
+NET "chave[4]" LOC = L13; 
+NET "chave[3]" LOC = L14; 
+NET "chave[2]" LOC = K17; 
+NET "chave[1]" LOC = K18; 
+NET "chave[0]" LOC = H18; 
+
+
+NET "An0" LOC = F17;
+NET "An1" LOC = H17;
+NET "An2" LOC = C18;
+NET "An3" LOC = F15;
+
+NET "CA" LOC = L18;
+NET "CB" LOC = F18;
+NET "CC" LOC = D17;
+NET "CD" LOC = D16;
+NET "CE" LOC = G14;
+NET "CF" LOC = J17;
+NET "CG" LOC = H14;
+NET "DP" LOC = C17;
+
+
+NET "carga" LOC = H13;
+NET "conta" LOC = E18;
+NET "reset" LOC = B18;
