@@ -14,10 +14,10 @@ NET "min[3]" LOC = "L13"; # SW2 - Minutos LSB
 NET "min[2]" LOC = "L14"; # SW3 - Minutos
 NET "min[1]" LOC = "K17"; # SW4 - Minutos
 NET "min[0]" LOC = "K18"; # SW5 - Minutos MSB
-NET "secs[1]" LOC = "H18"; # SW5 - Minutos MSB
-NET "secs[0]" LOC = "G18"; # SW5 - Minutos MSB
+NET "seg[1]" LOC = "H18"; # SW5 - Minutos MSB
+NET "seg[0]" LOC = "G18"; # SW5 - Minutos MSB
 
-#leds
+
 NET "quarto[0]" LOC = "E16"; # SW0 - Segundos LSB
 NET "quarto[1]" LOC = "P16"; # SW1 - Segundos MSB
 NET "quarto[2]" LOC = "E4"; # SW0 - Segundos LSB
