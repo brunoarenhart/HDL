@@ -133,16 +133,14 @@ cont_cent: process(clock, reset)
 			cent_int <= 0;
 			pronto_seg <= '0';
 		elsif falling_edge(clock) and pronto_cent = '1' then
-			
 			if cent_int = 0 then
 				cent_int <= 99;
 				pronto_seg <= '1';
-			
 			else
 				cent_int <= cent_int - 1;
 				pronto_seg <= '0';					
 		end if;
-	end if;			
+	end if;		
 end process cont_cent;
 
 cont_seg: process(clock, reset)
@@ -161,7 +159,7 @@ cont_seg: process(clock, reset)
             seg_int <= 15;
         when "10" =>
             seg_int <= 30;
-        when others => -- Cobre o "11"
+        when others => 
             seg_int <= 45;
 		end case;
 			elsif pronto_cent = '1' and pronto_seg = '1' then
@@ -196,9 +194,7 @@ cont_min: process(clock, reset)
                 min_int <= min_int - 1;
             end if;
         end if;
-		  
 		  if EA = COUNTING and pronto_cent = '1' then
-            -- Se o tempo for 00:00:00 e o centésimo pulsar:
             if min_int = 0 and seg_int = 0 and cent_int = 0 then
                  pronto_quarto <= '1';
             end if;
@@ -267,12 +263,4 @@ debouncer_para_continua : entity work.Debounce
             key    => para_continua,        
             debkey => para_continua_pulse    
         );
---debouncer_modo_novoquarto : entity work.Debounce
- --       port map (
- --           clock  => clock,         
- --           reset  => reset,         
-  --          key    => modo_novoquarto,         
-  --          debkey => modo_novoquarto_pulse    
-  --      );
-		
 end cron_basq_PI;
