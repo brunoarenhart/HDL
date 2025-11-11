@@ -16,10 +16,11 @@ entity cron_basq_PI is
 	min : in STD_LOGIC_VECTOR (3 downto 0);
 	seg : in STD_LOGIC_VECTOR (5 downto 0);
 	
-	quarto : out STD_LOGIC_VECTOR (1 downto 0); -- 4 leds
+	quarto : out STD_LOGIC_VECTOR (3 downto 0); -- 4 leds
 	minutos : out STD_LOGIC_VECTOR (3 downto 0); -- 4 leds
-	segundos : out STD_LOGIC_VECTOR (5 downto 0); -- 2 displays
-	centesimos : out STD_LOGIC_VECTOR (6 downto 0) -- 2 displays
+	segundos : out STD_LOGIC_VECTOR (7 downto 0); -- 2 displays
+	centesimos : out STD_LOGIC_VECTOR (7 downto 0) -- 2 displays
+	
 	
 	);
 end cron_basq_PI;
@@ -59,8 +60,16 @@ signal min_int : integer range 0 to 12;
 signal quarto_int: integer range 0 to 3;
 signal d0, d1, d2, d3: std_logic_vector(5 downto 0);
 signal modo, fim_jogo : std_logic;
+signal carga_pulse, para_continua_pulse, modo_novoquarto_pulse : std_logic;
 
 begin
+
+with std_logic_vector(to_unsigned(quarto_int, 2)) select
+    quarto(3 downto 0) <=
+        "0001" when "00",
+        "0010" when "01",
+        "0100" when "10",
+        "1000" when others; 
 
 controll: process(clock, reset)
 	begin
@@ -71,32 +80,32 @@ controll: process(clock, reset)
 		end if;
 	end process controll;
 	
-combinational: process(EA, para_continua, modo_novoquarto, carga, pronto_quarto)
+combinational: process(EA, para_continua_pulse, modo_novoquarto_pulse, carga_pulse, pronto_quarto)
 	begin
 		modo <= modo;
 		case EA is
 			when MODE_SET =>
-				if reset = '1' and modo_novoquarto ='1' then
+				if reset = '1' and modo_novoquarto_pulse ='1' then
 					PE <= IDLE;
 					modo <= '1';
-				elsif reset = '1' and modo_novoquarto ='0' then
+				elsif reset = '1' and modo_novoquarto_pulse ='0' then
 					PE <= IDLE;
 					modo <= '0';
 				end if;
 			when IDLE =>
-				if para_continua = '1' then
+				if para_continua_pulse = '1' then
 					PE <= COUNTING;
 				else
 					PE <= IDLE;
 				end if;
 			when COUNTING =>
-				if para_continua = '1' or pronto_quarto = '1' then
+				if para_continua_pulse = '1' or pronto_quarto = '1' then
 					PE <= STOPPED;
 				else 
 					PE <= COUNTING;
 				end if;
 			when STOPPED =>
-				if para_continua = '1'  then
+				if para_continua_pulse = '1'  then
 					PE <= COUNTING;
 				else 
 					PE <= STOPPED;
@@ -138,14 +147,14 @@ cont_cent: process(clock, reset)
 	end if;			
 end process cont_cent;
 
-cont_seg: process(clock, reset, carga)
+cont_seg: process(clock, reset)
 	begin
 		if reset = '1' then
 			seg_int <= 0;
 			pronto_min <= '0';
 		elsif falling_edge(clock) then 
 			pronto_min <= '0';
-			if carga = '1' then
+			if carga_pulse = '1' then
 				seg_int <= to_integer(unsigned(seg));
 			elsif pronto_cent = '1' and pronto_seg = '1' then
 				if seg_int = 0 then 
@@ -165,7 +174,7 @@ cont_min: process(clock, reset)
 			pronto_quarto <= '0';
 		elsif falling_edge(clock) then
 			pronto_quarto <= '0';
-			if carga = '1' then
+			if carga_pulse = '1' then
             min_int <= to_integer(unsigned(min));
 			elsif EA = MODE_SET then
 				if modo = '1' then 
@@ -188,7 +197,7 @@ cont_quartos: process(clock,reset)
 		if reset = '1' then
 			quarto_int <=  0;
 		elsif falling_edge(clock) then
-			if carga = '1' then
+			if carga_pulse = '1' then
 				quarto_int <= to_integer(unsigned(qua));
 			elsif pronto_quarto = '1' then
 				if quarto_int = 3 then
@@ -200,9 +209,52 @@ cont_quartos: process(clock,reset)
 		end if;
 	end process cont_quartos;
 	
-minutos <= std_logic_vector(to_unsigned(min_int, minutos'length)); 
-segundos <= std_logic_vector(to_unsigned(seg_int, segundos'length));
-centesimos <= std_logic_vector(to_unsigned(cent_int, centesimos'length));
-quarto <= std_logic_vector(to_unsigned(quarto_int, quarto'length));
+minutos <= std_logic_vector(to_unsigned(min_int, 4)); 
+segundos <= conv_to_bcd(seg_int);
+centesimos <= conv_to_bcd(cent_int);
+with std_logic_vector(to_unsigned(quarto_int, 2)) select
+    quarto(3 downto 0) <=
+        "0001" when "00",
+        "0010" when "01",
+        "0100" when "10",
+        "1000" when others; 
+		  
+d0 <= '1' & centesimos(7 downto 4) & '1';
+d1 <= '1' & centesimos(3 downto 0) & '1';
+d2 <= '1' & segundos(7 downto 4) & '1';
+d3 <= '1' & segundos(3 downto 0) & '1';
+		  
+dp_driver:entity work.dspl_drv 
+		port map(
+			clock=> clock,
+			reset=>reset,
+			d3 => d3,
+			d2 => d2,
+			d1 => d1,
+			d0 => d0,
+			an => an,
+			dec_ddp => dec_ddp
+		);
+debouncer_carga : entity work.Debounce
+        port map (
+            clock  => clock,         
+            reset  => reset,         
+            key    => carga,         
+            debkey => carga_pulse    
+        );
+debouncer_para_continua : entity work.Debounce
+        port map (
+            clock  => clock,         
+            reset  => reset,         
+            key    => para_continua,        
+            debkey => para_continua_pulse    
+        );
+debouncer__modo_novoquarto : entity work.Debounce
+        port map (
+            clock  => clock,         
+            reset  => reset,         
+            key    => modo_novoquarto,         
+            debkey => modo_novoquarto_pulse    
+        );
 		
 end cron_basq_PI;

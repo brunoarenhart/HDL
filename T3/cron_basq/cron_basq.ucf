@@ -1,0 +1,46 @@
+# Clock 50MHz
+NET "clock" LOC = "B8";
+
+# Botões (ativos-baixo)
+NET "carga"  LOC = "H13";  # BTN1
+NET "para_continua"  LOC = "E18";  # BTN2
+NET "modo_novoquarto" LOC = "D18";  # BTN3
+NET "reset" LOC = "B18";  # BTN0
+
+# Switches (SW0 - SW7)
+NET "qua[1]" LOC = "R17"; # SW0 - Segundos LSB
+NET "qua[0]" LOC = "N17"; # SW1 - Segundos MSB
+NET "min[3]" LOC = "L13"; # SW2 - Minutos LSB
+NET "min[2]" LOC = "L14"; # SW3 - Minutos
+NET "min[1]" LOC = "K17"; # SW4 - Minutos
+NET "min[0]" LOC = "K18"; # SW5 - Minutos MSB
+NET "secs[1]" LOC = "H18"; # SW5 - Minutos MSB
+NET "secs[0]" LOC = "G18"; # SW5 - Minutos MSB
+
+#leds
+NET "quarto[0]" LOC = "E16"; # SW0 - Segundos LSB
+NET "quarto[1]" LOC = "P16"; # SW1 - Segundos MSB
+NET "quarto[2]" LOC = "E4"; # SW0 - Segundos LSB
+NET "quarto[3]" LOC = "P4"; # SW0 - Segundos LSB
+
+NET "minutos[3]" LOC = "K14"; # SW2 - Minutos LSB
+NET "minutos[2]" LOC = "K15"; # SW3 - Minutos
+NET "minutos[1]" LOC = "J15"; # SW4 - Minutos
+NET "minutos[0]" LOC = "J14"; # SW5 - Minutos MSB
+
+
+
+# Display de 7 Segmentos - Anodos
+NET "an[0]" LOC = "F17";
+NET "an[1]" LOC = "H17";
+NET "an[2]" LOC = "C18";
+NET "an[3]" LOC = "F15";
+# Display de 7 Segmentos - Segmentos (Catodos)
+NET "dec_ddp[7]" LOC = "L18"; # CA
+NET "dec_ddp[6]" LOC = "F18"; # CB
+NET "dec_ddp[5]" LOC = "D17"; # CC
+NET "dec_ddp[4]" LOC = "D16"; # CD
+NET "dec_ddp[3]" LOC = "G14"; # CE
+NET "dec_ddp[2]" LOC = "J17"; # CF
+NET "dec_ddp[1]" LOC = "H14"; # CG
+NET "dec_ddp[0]" LOC = "C17"; # DP
