@@ -64,6 +64,7 @@ signal minutos_led :  STD_LOGIC_VECTOR (3 downto 0); -- 4 leds
 signal segundos : STD_LOGIC_VECTOR (7 downto 0); -- 2 displays
 signal centesimos :  STD_LOGIC_VECTOR (7 downto 0); -- 2 displays
 signal quarto_led : STD_LOGIC_VECTOR (1 downto 0);
+
 begin
 
 
@@ -122,6 +123,7 @@ contador: process(clock, reset)
 				else 
 					i <= i + 1;
 					pronto_cent <= '0';
+			
 				end if;
 			end if;
 		end if;
@@ -133,14 +135,17 @@ cont_cent: process(clock, reset)
 			cent_int <= 0;
 			pronto_seg <= '0';
 		elsif falling_edge(clock) and pronto_cent = '1' then
-			if cent_int = 0 then
+			if pronto_quarto = '1' then 
+				cent_int <= 0;
+			elsif pronto_quarto = '0' then
 				cent_int <= 99;
 				pronto_seg <= '1';
+			
 			else
 				cent_int <= cent_int - 1;
 				pronto_seg <= '0';					
 		end if;
-	end if;		
+	end if;			
 end process cont_cent;
 
 cont_seg: process(clock, reset)
@@ -159,14 +164,16 @@ cont_seg: process(clock, reset)
             seg_int <= 15;
         when "10" =>
             seg_int <= 30;
-        when others => 
+        when others =>
             seg_int <= 45;
 		end case;
 			elsif pronto_cent = '1' and pronto_seg = '1' then
-				if seg_int = 0 then 
+				if seg_int = 0 and pronto_quarto = '0' then 
 					seg_int <= 59;
 					pronto_min <= '1';
-				else 
+				elsif seg_int = 0 and pronto_quarto = '1' then
+					seg_int <= 0;
+				else
 					seg_int <= seg_int - 1;
 				end if;
 			end if;
@@ -194,12 +201,13 @@ cont_min: process(clock, reset)
                 min_int <= min_int - 1;
             end if;
         end if;
+		  
 		  if EA = COUNTING and pronto_cent = '1' then
             if min_int = 0 and seg_int = 0 and cent_int = 0 then
                  pronto_quarto <= '1';
+					  
             end if;
         end if;
-			
 		end if;
 	end process cont_min;
 
@@ -263,4 +271,12 @@ debouncer_para_continua : entity work.Debounce
             key    => para_continua,        
             debkey => para_continua_pulse    
         );
+--debouncer_modo_novoquarto : entity work.Debounce
+ --       port map (
+ --           clock  => clock,         
+ --           reset  => reset,         
+  --          key    => modo_novoquarto,         
+  --          debkey => modo_novoquarto_pulse    
+  --      );
+		
 end cron_basq_PI;
