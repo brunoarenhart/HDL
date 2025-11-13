@@ -5,7 +5,7 @@
     The structure and the elements are likely to change over the next few releases.
     This means code written to parse this file will need to be revisited each subsequent release.-->
 
-  <application stringID="Map" timeStamp="Tue Nov 11 02:53:12 2025">
+  <application stringID="Map" timeStamp="Thu Nov 13 16:34:06 2025">
     <section stringID="User_Env">
       <table stringID="User_EnvVar">
         <column stringID="variable"/>
@@ -52,8 +52,8 @@
         <column stringID="arch"/>
         <column stringID="speed"/>
         <row stringID="row" value="0">
-          <item stringID="arch" value="12th Gen Intel(R) Core(TM) i5-12450H"/>
-          <item stringID="speed" value="2495.998 MHz"/>
+          <item stringID="arch" value="AMD Ryzen 5 5500U with Radeon Graphics         "/>
+          <item stringID="speed" value="2096.066 MHz"/>
         </row>
       </table>
     </section>
@@ -77,19 +77,19 @@
         <item dataType="int" stringID="MAP_NUM_ERRORS" value="0"/>
         <item dataType="int" stringID="MAP_FILTERED_WARNINGS" value="0"/>
         <item dataType="int" stringID="MAP_NUM_WARNINGS" value="1"/>
-        <item UNITS="KB" dataType="int" stringID="MAP_PEAK_MEMORY" value="710172"/>
-        <item stringID="MAP_TOTAL_REAL_TIME" value="13 secs "/>
-        <item stringID="MAP_TOTAL_CPU_TIME" value="7 secs "/>
+        <item UNITS="KB" dataType="int" stringID="MAP_PEAK_MEMORY" value="710224"/>
+        <item stringID="MAP_TOTAL_REAL_TIME" value="4 secs "/>
+        <item stringID="MAP_TOTAL_CPU_TIME" value="4 secs "/>
       </section>
       <section stringID="MAP_SLICE_REPORTING">
         <item AVAILABLE="17344" dataType="int" label="Number of Slice Registers" stringID="MAP_SLICE_REGISTERS" value="151">
           <item dataType="int" label="Number of Slice Flip Flops" stringID="MAP_NUM_SLICE_FF" value="146"/>
           <item dataType="int" stringID="MAP_NUM_SLICE_LATCH" value="5"/>
         </item>
-        <item AVAILABLE="17344" dataType="int" label="Number of 4 input LUTs" stringID="MAP_NUM_4_INPUT_LUT" value="309">
+        <item AVAILABLE="17344" dataType="int" label="Number of 4 input LUTs" stringID="MAP_NUM_4_INPUT_LUT" value="317">
           <item dataType="int" label="Number of route-thrus" stringID="MAP_NUM_LUT_RT" value="115"/>
         </item>
-        <item AVAILABLE="8672" dataType="int" label="Number of occupied Slices" stringID="MAP_OCCUPIED_SLICES" value="170">
+        <item AVAILABLE="8672" dataType="int" label="Number of occupied Slices" stringID="MAP_OCCUPIED_SLICES" value="173">
           <item dataType="int" label="Number of Slices containing unrelated logic" stringID="MAP_NUM_SLICE_UNRELATED" value="0"/>
         </item>
       </section>

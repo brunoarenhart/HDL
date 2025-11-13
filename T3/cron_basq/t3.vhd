@@ -135,15 +135,24 @@ cont_cent: process(clock, reset)
 			cent_int <= 0;
 			pronto_seg <= '0';
 		elsif falling_edge(clock) and pronto_cent = '1' then
-			if pronto_quarto = '1' then 
-				cent_int <= 0;
-			elsif pronto_quarto = '0' then
-				cent_int <= 99;
-				pronto_seg <= '1';
-			
+			if (EA = STOPPED and para_continua_pulse = '1') then
+            cent_int <= 0;
+            pronto_seg <= '0';
+			elsif pronto_cent = '1' then
+				if cent_int = 0 then
+					if (min_int = 0 and seg_int = 0) then
+						cent_int <= 0;
+						pronto_seg <= '0';
+					else
+						cent_int <= 99;
+						pronto_seg <= '1';
+					end if;
+				else
+					cent_int <= cent_int - 1;
+					pronto_seg <= '0';
+				end if;
 			else
-				cent_int <= cent_int - 1;
-				pronto_seg <= '0';					
+				pronto_seg <= '0';
 		end if;
 	end if;			
 end process cont_cent;
@@ -156,23 +165,22 @@ cont_seg: process(clock, reset)
 		elsif falling_edge(clock) then 
 			pronto_min <= '0';
 			if carga_pulse = '1' then
-				
 				case seg is
-        when "00" =>
+				  when "00" =>
+						seg_int <= 0;
+				  when "01" =>
+						seg_int <= 15;
+				  when "10" =>
+						seg_int <= 30;
+				  when others =>
+						seg_int <= 45;
+				end case;
+			elsif (EA = STOPPED and para_continua_pulse = '1') then
             seg_int <= 0;
-        when "01" =>
-            seg_int <= 15;
-        when "10" =>
-            seg_int <= 30;
-        when others =>
-            seg_int <= 45;
-		end case;
 			elsif pronto_cent = '1' and pronto_seg = '1' then
-				if seg_int = 0 and pronto_quarto = '0' then 
+				if seg_int = 0 then 
 					seg_int <= 59;
 					pronto_min <= '1';
-				elsif seg_int = 0 and pronto_quarto = '1' then
-					seg_int <= 0;
 				else
 					seg_int <= seg_int - 1;
 				end if;
@@ -195,17 +203,21 @@ cont_min: process(clock, reset)
 				else
 					min_int <= 10;
 				end if;
+			elsif (EA = STOPPED and para_continua_pulse = '1') then
+            if modo = '1' then 
+                min_int <= 12;
+            else
+                min_int <= 10;
+            end if;
 				
 				elsif EA = COUNTING and pronto_min = '1' then 
             if min_int > 0 then 
                 min_int <= min_int - 1;
             end if;
         end if;
-		  
 		  if EA = COUNTING and pronto_cent = '1' then
             if min_int = 0 and seg_int = 0 and cent_int = 0 then
                  pronto_quarto <= '1';
-					  
             end if;
         end if;
 		end if;
@@ -218,13 +230,13 @@ cont_quartos: process(clock,reset)
 		elsif falling_edge(clock) then
 			if carga_pulse = '1' then
 				quarto_int <= to_integer(unsigned(qua));
-			elsif pronto_quarto = '1' then
-				if quarto_int = 3 then
-					fim_jogo <= '1';
-				elsif quarto_int < 3 then
-				quarto_int <= quarto_int + 1;
-				end if;
-			end if;
+			elsif (EA = STOPPED and para_continua_pulse = '1') then
+            if quarto_int = 3 then
+                fim_jogo <= '1';
+            elsif quarto_int < 3 then
+                quarto_int <= quarto_int + 1;
+            end if;
+        end if;
 		end if;
 	end process cont_quartos;
 	
@@ -271,12 +283,5 @@ debouncer_para_continua : entity work.Debounce
             key    => para_continua,        
             debkey => para_continua_pulse    
         );
---debouncer_modo_novoquarto : entity work.Debounce
- --       port map (
- --           clock  => clock,         
- --           reset  => reset,         
-  --          key    => modo_novoquarto,         
-  --          debkey => modo_novoquarto_pulse    
-  --      );
 		
 end cron_basq_PI;

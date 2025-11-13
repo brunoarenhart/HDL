@@ -5,14 +5,14 @@ Parameter TMPDIR set to xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.08 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.08 secs
  
 --> 
 Reading design: cron_basq_PI.prj
@@ -107,11 +107,11 @@ Slice Utilization Ratio Delta      : 5
 =========================================================================
 *                          HDL Compilation                              *
 =========================================================================
-Compiling vhdl file "/home/ise/ise_projs/hdl2/HDL/HDL/T3/cron_basq/dp_driver.vhd" in Library work.
+Compiling vhdl file "/home/ise/ise_projs/T3/cron_basq/dp_driver.vhd" in Library work.
 Architecture dspl_drv of Entity dspl_drv is up to date.
-Compiling vhdl file "/home/ise/ise_projs/hdl2/HDL/HDL/T3/cron_basq/debounce.vhd" in Library work.
+Compiling vhdl file "/home/ise/ise_projs/T3/cron_basq/debounce.vhd" in Library work.
 Architecture debounce of Entity debounce is up to date.
-Compiling vhdl file "/home/ise/ise_projs/hdl2/HDL/HDL/T3/cron_basq/t3.vhd" in Library work.
+Compiling vhdl file "/home/ise/ise_projs/T3/cron_basq/t3.vhd" in Library work.
 Entity <cron_basq_pi> compiled.
 Entity <cron_basq_pi> (Architecture <cron_basq_pi>) compiled.
 
@@ -132,7 +132,7 @@ Analyzing hierarchy for entity <Debounce> in library <work> (architecture <Debou
 =========================================================================
 Analyzing generic Entity <cron_basq_PI> in library <work> (Architecture <cron_basq_pi>).
 	MAXCOUNT = 500000
-WARNING:Xst:819 - "/home/ise/ise_projs/hdl2/HDL/HDL/T3/cron_basq/t3.vhd" line 79: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+WARNING:Xst:819 - "/home/ise/ise_projs/T3/cron_basq/t3.vhd" line 80: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
    <reset>, <modo_novoquarto>
 INFO:Xst:2679 - Register <fim_jogo> in unit <cron_basq_PI> has a constant value of 1 during circuit operation. The register is replaced by logic.
 Entity <cron_basq_PI> analyzed. Unit <cron_basq_PI> generated.
@@ -152,7 +152,7 @@ Entity <Debounce> analyzed. Unit <Debounce> generated.
 Performing bidirectional port resolution...
 
 Synthesizing Unit <dspl_drv>.
-    Related source file is "/home/ise/ise_projs/hdl2/HDL/HDL/T3/cron_basq/dp_driver.vhd".
+    Related source file is "/home/ise/ise_projs/T3/cron_basq/dp_driver.vhd".
     Found 16x7-bit ROM for signal <selected_dig_4_1$rom0000>.
     Found 4-bit register for signal <an>.
     Found 4-bit 4-to-1 multiplexer for signal <an$mux0003>.
@@ -172,7 +172,7 @@ Unit <dspl_drv> synthesized.
 
 
 Synthesizing Unit <Debounce>.
-    Related source file is "/home/ise/ise_projs/hdl2/HDL/HDL/T3/cron_basq/debounce.vhd".
+    Related source file is "/home/ise/ise_projs/T3/cron_basq/debounce.vhd".
 INFO:Xst:1799 - State s3 is never reached in FSM <EADiv>.
 INFO:Xst:1799 - State s4 is never reached in FSM <EADiv>.
 INFO:Xst:1799 - State s5 is never reached in FSM <EADiv>.
@@ -220,35 +220,36 @@ Unit <Debounce> synthesized.
 
 
 Synthesizing Unit <cron_basq_PI>.
-    Related source file is "/home/ise/ise_projs/hdl2/HDL/HDL/T3/cron_basq/t3.vhd".
+    Related source file is "/home/ise/ise_projs/T3/cron_basq/t3.vhd".
 WARNING:Xst:1780 - Signal <minutos_led> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:646 - Signal <fim_jogo> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-    Found 100x8-bit ROM for signal <centesimos$rom0000> created at line 229.
+    Found 100x8-bit ROM for signal <centesimos$rom0000> created at line 245.
 WARNING:Xst:737 - Found 1-bit latch for signal <modo>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
     Using one-hot encoding for signal <EA>.
     Found 60x8-bit ROM for signal <segundos>.
 WARNING:Xst:737 - Found 4-bit latch for signal <PE>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
 INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
     Found 1-of-4 decoder for signal <quarto>.
-    Found 7-bit down counter for signal <cent_int>.
+    Found 7-bit register for signal <cent_int>.
+    Found 7-bit subtractor for signal <cent_int$addsub0000> created at line 151.
     Found 4-bit register for signal <EA>.
     Found 19-bit up counter for signal <i>.
     Found 4-bit register for signal <min_int>.
-    Found 4-bit subtractor for signal <min_int$addsub0000> created at line 196.
-    Found 4-bit comparator lessequal for signal <min_int$cmp_le0000> created at line 195.
+    Found 4-bit subtractor for signal <min_int$addsub0000> created at line 215.
+    Found 4-bit comparator lessequal for signal <min_int$cmp_le0000> created at line 214.
     Found 1-bit register for signal <pronto_cent>.
     Found 1-bit register for signal <pronto_min>.
     Found 1-bit register for signal <pronto_quarto>.
     Found 1-bit register for signal <pronto_seg>.
     Found 2-bit up counter for signal <quarto_int>.
-    Found 2-bit comparator greatequal for signal <quarto_int$cmp_ge0000> created at line 219.
+    Found 2-bit comparator greatequal for signal <quarto_int$cmp_ge0000> created at line 235.
     Found 6-bit register for signal <seg_int>.
-    Found 6-bit subtractor for signal <seg_int$addsub0000> created at line 172.
+    Found 6-bit subtractor for signal <seg_int$addsub0000> created at line 185.
     Summary:
 	inferred   2 ROM(s).
-	inferred   3 Counter(s).
-	inferred  14 D-type flip-flop(s).
-	inferred   2 Adder/Subtractor(s).
+	inferred   2 Counter(s).
+	inferred  21 D-type flip-flop(s).
+	inferred   3 Adder/Subtractor(s).
 	inferred   2 Comparator(s).
 	inferred   1 Decoder(s).
 Unit <cron_basq_PI> synthesized.
@@ -262,22 +263,23 @@ Macro Statistics
  100x8-bit ROM                                         : 1
  16x7-bit ROM                                          : 1
  60x8-bit ROM                                          : 1
-# Adders/Subtractors                                   : 3
+# Adders/Subtractors                                   : 4
  15-bit adder                                          : 1
  4-bit subtractor                                      : 1
  6-bit subtractor                                      : 1
-# Counters                                             : 6
+ 7-bit subtractor                                      : 1
+# Counters                                             : 5
  15-bit up counter                                     : 1
  19-bit up counter                                     : 1
  2-bit up counter                                      : 1
  32-bit up counter                                     : 2
- 7-bit down counter                                    : 1
-# Registers                                            : 13
+# Registers                                            : 14
  1-bit register                                        : 7
  2-bit register                                        : 1
  4-bit register                                        : 3
  5-bit register                                        : 1
  6-bit register                                        : 1
+ 7-bit register                                        : 1
 # Latches                                              : 2
  1-bit latch                                           : 1
  4-bit latch                                           : 1
@@ -344,18 +346,18 @@ Macro Statistics
  100x8-bit ROM                                         : 1
  16x7-bit ROM                                          : 1
  60x8-bit ROM                                          : 1
-# Adders/Subtractors                                   : 3
+# Adders/Subtractors                                   : 4
  15-bit adder                                          : 1
  4-bit subtractor                                      : 1
  6-bit subtractor                                      : 1
-# Counters                                             : 6
+ 7-bit subtractor                                      : 1
+# Counters                                             : 5
  15-bit up counter                                     : 1
  19-bit up counter                                     : 1
  2-bit up counter                                      : 1
  32-bit up counter                                     : 2
- 7-bit down counter                                    : 1
-# Registers                                            : 32
- Flip-Flops                                            : 32
+# Registers                                            : 39
+ Flip-Flops                                            : 39
 # Latches                                              : 2
  1-bit latch                                           : 1
  4-bit latch                                           : 1
@@ -425,27 +427,28 @@ Design Statistics
 # IOs                              : 33
 
 Cell Usage :
-# BELS                             : 597
+# BELS                             : 608
 #      GND                         : 1
-#      INV                         : 22
+#      INV                         : 21
 #      LUT1                        : 114
-#      LUT2                        : 44
+#      LUT2                        : 43
+#      LUT2_D                      : 2
 #      LUT2_L                      : 3
-#      LUT3                        : 20
+#      LUT3                        : 21
+#      LUT3_D                      : 1
 #      LUT3_L                      : 1
-#      LUT4                        : 108
+#      LUT4                        : 115
 #      LUT4_D                      : 4
-#      LUT4_L                      : 2
 #      MUXCY                       : 135
-#      MUXF5                       : 25
+#      MUXF5                       : 29
 #      MUXF6                       : 4
 #      VCC                         : 1
 #      XORCY                       : 113
 # FlipFlops/Latches                : 151
 #      FDC                         : 17
 #      FDC_1                       : 5
-#      FDCE                        : 28
-#      FDCE_1                      : 12
+#      FDCE                        : 21
+#      FDCE_1                      : 19
 #      FDE                         : 4
 #      FDP                         : 4
 #      FDP_1                       : 1
@@ -466,9 +469,9 @@ Device utilization summary:
 
 Selected Device : 3s1200efg320-4 
 
- Number of Slices:                      166  out of   8672     1%  
+ Number of Slices:                      169  out of   8672     1%  
  Number of Slice Flip Flops:            151  out of  17344     0%  
- Number of 4 input LUTs:                318  out of  17344     1%  
+ Number of 4 input LUTs:                325  out of  17344     1%  
  Number of IOs:                          33
  Number of bonded IOBs:                  33  out of    250    13%  
  Number of GCLKs:                         1  out of     24     4%  
@@ -528,7 +531,7 @@ All values displayed in nanoseconds (ns)
 =========================================================================
 Timing constraint: Default period analysis for Clock 'clock'
   Clock period: 8.009ns (frequency: 124.860MHz)
-  Total number of paths / destination ports: 5685 / 305
+  Total number of paths / destination ports: 5929 / 305
 -------------------------------------------------------------------------
 Delay:               8.009ns (Levels of Logic = 6)
   Source:            dp_driver/count_25K_1 (FF)
@@ -599,7 +602,7 @@ Delay:               3.082ns (Levels of Logic = 2)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'clock'
-  Total number of paths / destination ports: 164 / 152
+  Total number of paths / destination ports: 161 / 152
 -------------------------------------------------------------------------
 Offset:              5.453ns (Levels of Logic = 2)
   Source:            reset (PAD)
@@ -701,7 +704,7 @@ Offset:              5.870ns (Levels of Logic = 2)
 Timing constraint: Default OFFSET OUT AFTER for Clock 'clock'
   Total number of paths / destination ports: 12 / 8
 -------------------------------------------------------------------------
-Offset:              5.870ns (Levels of Logic = 2)
+Offset:              5.858ns (Levels of Logic = 2)
   Source:            quarto_int_0 (FF)
   Destination:       quarto<3> (PAD)
   Source Clock:      clock falling
@@ -710,23 +713,23 @@ Offset:              5.870ns (Levels of Logic = 2)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDCE:C->Q             7   0.591   0.883  quarto_int_0 (quarto_int_0)
-     LUT2:I0->O            1   0.704   0.420  quarto<3>1 (quarto_3_OBUF)
+     FDCE:C->Q             6   0.591   0.844  quarto_int_0 (quarto_int_0)
+     LUT2:I0->O            2   0.704   0.447  quarto<3>1 (quarto_3_OBUF)
      OBUF:I->O                 3.272          quarto_3_OBUF (quarto<3>)
     ----------------------------------------
-    Total                      5.870ns (4.567ns logic, 1.303ns route)
-                                       (77.8% logic, 22.2% route)
+    Total                      5.858ns (4.567ns logic, 1.291ns route)
+                                       (78.0% logic, 22.0% route)
 
 =========================================================================
 
 
-Total REAL time to Xst completion: 13.00 secs
-Total CPU time to Xst completion: 2.15 secs
+Total REAL time to Xst completion: 14.00 secs
+Total CPU time to Xst completion: 12.48 secs
  
 --> 
 
 
-Total memory usage is 617932 kilobytes
+Total memory usage is 618208 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    8 (   0 filtered)

@@ -5,8 +5,7 @@ Command Line: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/ngdbuild -intstyle
 ise -dd _ngo -nt timestamp -uc cron_basq.ucf -p xc3s1200e-fg320-4
 cron_basq_PI.ngc cron_basq_PI.ngd
 
-Reading NGO file
-"/home/ise/ise_projs/hdl2/HDL/HDL/T3/cron_basq/cron_basq_PI.ngc" ...
+Reading NGO file "/home/ise/ise_projs/T3/cron_basq/cron_basq_PI.ngc" ...
 Gathering constraint information from source properties...
 Done.
 
@@ -28,10 +27,10 @@ NGDBUILD Design Results Summary:
   Number of errors:     0
   Number of warnings:   0
 
-Total memory usage is 488024 kilobytes
+Total memory usage is 488056 kilobytes
 
 Writing NGD file "cron_basq_PI.ngd" ...
-Total REAL time to NGDBUILD completion:  16 sec
-Total CPU time to NGDBUILD completion:   8 sec
+Total REAL time to NGDBUILD completion:  6 sec
+Total CPU time to NGDBUILD completion:   6 sec
 
 Writing NGDBUILD log file "cron_basq_PI.bld"...

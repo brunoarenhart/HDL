@@ -5,7 +5,7 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="Xst" num="819" delta="old" >&quot;<arg fmt="%s" index="1">/home/ise/ise_projs/hdl2/HDL/HDL/T3/cron_basq/t3.vhd</arg>&quot; line <arg fmt="%d" index="2">79</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+<msg type="warning" file="Xst" num="819" delta="old" >&quot;<arg fmt="%s" index="1">/home/ise/ise_projs/T3/cron_basq/t3.vhd</arg>&quot; line <arg fmt="%d" index="2">80</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
 <arg fmt="%s" index="3">&lt;reset&gt;, &lt;modo_novoquarto&gt;</arg>
 </msg>
 
@@ -52,14 +52,14 @@ You should achieve better results by setting this init to <arg fmt="%i" index="3
 <msg type="info" file="Xst" num="3034" delta="old" >In order to maximize performance and save block RAM resources, the small ROM &lt;<arg fmt="%s" index="1">Mrom_selected_dig_4_1_rom0000</arg>&gt; will be implemented on LUT. If you want to force its implementation on block, use option/constraint rom_style.
 </msg>
 
-<msg type="warning" file="Xst" num="1426" delta="new" >The value init of the FF/Latch <arg fmt="%s" index="1">PE_0</arg> hinder the constant cleaning in the block <arg fmt="%s" index="2">cron_basq_PI</arg>.
+<msg type="warning" file="Xst" num="1426" delta="old" >The value init of the FF/Latch <arg fmt="%s" index="1">PE_0</arg> hinder the constant cleaning in the block <arg fmt="%s" index="2">cron_basq_PI</arg>.
 You should achieve better results by setting this init to <arg fmt="%i" index="3">0</arg>.
 </msg>
 
-<msg type="warning" file="Xst" num="1710" delta="new" >FF/Latch &lt;<arg fmt="%s" index="1">selected_dig_0</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">1</arg> in block &lt;<arg fmt="%s" index="3">dspl_drv</arg>&gt;. This FF/Latch will be trimmed during the optimization process.
+<msg type="warning" file="Xst" num="1710" delta="old" >FF/Latch &lt;<arg fmt="%s" index="1">selected_dig_0</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">1</arg> in block &lt;<arg fmt="%s" index="3">dspl_drv</arg>&gt;. This FF/Latch will be trimmed during the optimization process.
 </msg>
 
-<msg type="info" file="Xst" num="2169" delta="new" >HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+<msg type="info" file="Xst" num="2169" delta="old" >HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
 </msg>
 
 </messages>
